@@ -6,11 +6,14 @@
 /*   By: rukoltso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 12:22:35 by rukoltso          #+#    #+#             */
-/*   Updated: 2023/01/17 12:22:46 by rukoltso         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:36:52 by rukoltso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isprint(int c)
+int	ft_isprint(int c)
 {
-	return ((c >= 32 && c <= 126) ? c : 0);
+	if (c >= 32 && c <= 126)
+		return (1);
+	else
+		return (0);
 }

@@ -6,79 +6,82 @@
 /*   By: rukoltso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:02:18 by rukoltso          #+#    #+#             */
-/*   Updated: 2023/11/06 14:02:22 by rukoltso         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:19:29 by rukoltso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_word(char const *s, char c)
+static int	is_charset(char s, char c)
 {
-	size_t	i;
-	size_t	word;
+	if (s == c)
+		return (1);
+	return (0);
+}
+
+static int	words_count(char const *s, char c)
+{
+	int	count;
+
+	count = 0;
+	while (*s)
+	{
+		while (*s && is_charset(*s, c))
+			s++;
+		if (*s && !is_charset(*s, c))
+		{
+			count++;
+			while (*s && !is_charset(*s, c))
+				s++;
+		}
+	}
+	return (count);
+}
+
+static char	*malloc_word(char const *s, char c)
+{
+	char	*word;
+	int		i;
 
 	i = 0;
-	word = 0;
-	while (s && s[i])
+	while (s[i] && !is_charset(s[i], c))
+		i++;
+	word = malloc(sizeof(char) * (i + 1));
+	if (!word)
+		return (NULL);
+	i = 0;
+	while (s[i] && !is_charset(s[i], c))
 	{
-		if (s[i] != c)
-		{
-			word++;
-			while (s[i] != c && s[i])
-				i++;
-		}
-		else
-			i++;
+		word[i] = s[i];
+		i++;
 	}
+	word[i] = '\0';
 	return (word);
 }
 
-static int	ft_size_word(char const *s, char c, size_t i)
+char	**ft_split(char const *s, char c)
 {
-	int	size;
+	char	**dest;
+	int		words;
+	int		x;
 
-	size = 0;
-	while (s[i] != c && s[i])
-	{
-		size++;
-		i++;
-	}
-	return (size);
-}
-
-static void	ft_free(char **strs, size_t j)
-{
-	while (j-- > 0)
-		free(strs[j]);
-	free(strs);
-}
-
-char		**ft_split(char const *s, char c)
-{
-	size_t		i;
-	size_t		word;
-	char		**strs;
-	size_t		size;
-	size_t		j;
-
-	i = 0;
-	j = -1;
-	word = ft_count_word(s, c);
-	if (!(strs = (char **)malloc((word + 1) * sizeof(char *))))
+	words = words_count(s, c);
+	dest = malloc(sizeof(char *) * (words + 1));
+	if (!dest)
 		return (NULL);
-	while (++j < word)
+	x = 0;
+	while (*s)
 	{
-		while (s[i] == c)
-			i++;
-		size = ft_size_word(s, c, i);
-		if (!(strs[j] = ft_substr(s, i, size)))
+		while (*s && is_charset(*s, c))
+			s++;
+		if (*s && !is_charset(*s, c))
 		{
-			ft_free(strs, j);
-			return (NULL);
+			dest[x] = malloc_word(s, c);
+			x++;
+			while (*s && !is_charset(*s, c))
+				s++;
 		}
-		i += size;
 	}
-	strs[j] = 0;
-	return (strs);
+	dest[x] = NULL;
+	return (dest);
 }
-

@@ -6,16 +6,16 @@
 /*   By: rukoltso <rukoltso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:48:53 by rukoltso          #+#    #+#             */
-/*   Updated: 2023/11/10 12:58:55 by rukoltso         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:33:34 by rukoltso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_word_counter(char const *str, char c)
+int	ft_word_counter(char const *str, char c)
 {
-	int i;
-	int words;
+	int	i;
+	int	words;
 
 	words = 0;
 	i = 0;

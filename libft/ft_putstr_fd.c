@@ -6,25 +6,18 @@
 /*   By: rukoltso <rukoltso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:52:31 by rukoltso          #+#    #+#             */
-/*   Updated: 2023/12/04 16:02:18 by rukoltso         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:35:18 by rukoltso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
 	i = 0;
-	if (fd < 0)
-		return ;
 	if (s)
-	{
 		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}
-	}
+			write(fd, &s[i++], 1);
 }

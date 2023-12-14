@@ -6,43 +6,28 @@
 /*   By: rukoltso <rukoltso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:51:17 by rukoltso          #+#    #+#             */
-/*   Updated: 2023/12/04 16:01:10 by rukoltso         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:21:26 by rukoltso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		is_in_set(char c, const char *set)
+char	*ft_strdup(const char *s)
 {
-	while (*set)
-		if (c == *set++)
-			return (0);
-	return (1);
-}
+	size_t	len;
+	char	*mem;
+	int		i;
 
-char			*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	start;
-	size_t	end;
-	char	*rtn;
-
-	if (!s1)
+	len = ft_strlen(s) + 1;
+	mem = (char *)malloc(sizeof(char) * len);
+	if (!mem)
 		return (NULL);
-	if (!set)
-		return (ft_strdup(s1));
-	start = 0;
-	end = ft_strlen(s1);
-	while (is_in_set(s1[start], set) == 0)
-		start++;
-	if (start == ft_strlen(s1))
+	i = 0;
+	mem = ft_memcpy(mem, s, len);
+	while (mem[i])
 	{
-		if (!(rtn = ft_strdup("")))
-			return (NULL);
-		else
-			return (rtn);
+		i++;
 	}
-	while (is_in_set(s1[end - 1], set) == 0)
-		end--;
-	rtn = ft_substr(s1, start, end - start);
-	return (rtn);
+	mem[i] = '\0';
+	return (mem);
 }
